@@ -1,0 +1,9 @@
+# Netbeans files #
+nbactions.xml
+nb-configuration.xml
+
+# Build Directories #
+target/
+
+# Package Files #
+*.jar
