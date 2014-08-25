@@ -22,9 +22,11 @@ package net.vojt.calculator;
 import java.math.BigDecimal;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.NoSuchElementException;
 
 /**
  * A FIFO queue of commands given in a single computation request.
+ * Note that this queue is not reusable, once it is read it becomes empty.
  * 
  * @author janvojt
  */
@@ -57,7 +59,17 @@ public class Computation {
      * @return next command to process
      */
     public Command popCommand() {
-        return commands.pop();
+        return commands.removeLast();
+    }
+    
+    /**
+     * Method typically used to hint that next call to {@link #popCommand()}
+     * will result in {@link NoSuchElementException}.
+     * 
+     * @return whether this queue contains no commands
+     */
+    public boolean isEmpty() {
+        return commands.isEmpty();
     }
 
     /** @return value initializing the computation sequence */
