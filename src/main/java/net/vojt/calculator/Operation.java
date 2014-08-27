@@ -26,6 +26,7 @@ package net.vojt.calculator;
  */
 public enum Operation {
     
+    APPLY,
     ADD,
     SUBTRACT,
     MULTIPLY,

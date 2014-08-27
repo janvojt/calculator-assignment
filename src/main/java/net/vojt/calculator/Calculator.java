@@ -19,6 +19,13 @@
 
 package net.vojt.calculator;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+
 /**
  * The main class that launches the application.
  *
@@ -27,11 +34,33 @@ package net.vojt.calculator;
 public class Calculator {
 
     /**
+     * Entry point of the application.
+     * 
      * @param args the command line arguments
+     * @throws java.io.IOException in case of I/O error
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("Hello Calculator!");
+    public static void main(String[] args) throws IOException {
+        
+        InteractiveCalculator calc = new InteractiveCalculator();
+        
+        // we are always writing to stdout
+        calc.setWriter(new OutputStreamWriter(System.out));
+        
+        if (args.length > 0) {
+            // we are to read from file
+            String filePath = args[0];
+            try (Reader reader = new FileReader(filePath)) {
+                calc.setReader(reader);
+            } catch (FileNotFoundException ex) {
+                System.err.println("Could not read file: '" + filePath + "'");
+            }
+        } else {
+            // we are to read from stdin
+            System.out.println("You may start typing commands. Terminate with EOF on a new line.");
+            calc.setReader(new InputStreamReader(System.in));
+        }
+        
+        // Run Forest, run!
+        calc.run();
     }
-    
 }

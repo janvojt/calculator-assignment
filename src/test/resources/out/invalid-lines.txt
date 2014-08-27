@@ -1,0 +1,3 @@
+ERROR: Invalid command syntax.
+ERROR: Invalid command syntax.
+Result is: 1

@@ -46,11 +46,18 @@ public class Computation {
     
     /**
      * Pushes a single {@link Command} onto the command queue.
+     * In case APPLY command is passed as an argument, situation
+     * is simply handled by setting the
+     * {@link #setInitializer(java.math.BigDecimal) initializer}.
      * 
      * @param command command to process in the computation sequence
      */
     public void pushCommand(Command command) {
-        commands.push(command);
+        if (Operation.APPLY.equals(command.getOperation())) {
+            setInitializer(command.getValue());
+        } else {
+            commands.push(command);
+        }
     }
     
     /**
@@ -80,6 +87,11 @@ public class Computation {
     /** @param initializer value initializing the computation sequence */
     public void setInitializer(BigDecimal initializer) {
         this.initializer = initializer;
+    }
+    
+    /** Clears the command history. */
+    public void clear() {
+        commands.clear();
     }
     
 }
