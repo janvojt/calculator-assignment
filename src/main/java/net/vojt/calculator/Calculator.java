@@ -51,6 +51,7 @@ public class Calculator {
             String filePath = args[0];
             try (Reader reader = new FileReader(filePath)) {
                 calc.setReader(reader);
+                calc.run();
             } catch (FileNotFoundException ex) {
                 System.err.println("Could not read file: '" + filePath + "'");
             }
@@ -58,9 +59,7 @@ public class Calculator {
             // we are to read from stdin
             System.out.println("You may start typing commands. Terminate with EOF on a new line.");
             calc.setReader(new InputStreamReader(System.in));
+            calc.run();
         }
-        
-        // Run Forest, run!
-        calc.run();
     }
 }
